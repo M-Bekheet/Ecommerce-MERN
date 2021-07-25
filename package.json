@@ -1,0 +1,16 @@
+{
+  "name": "mern-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd frontend/ && npm run start\" \"cd backend/ && nodemon app \" "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
