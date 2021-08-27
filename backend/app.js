@@ -5,8 +5,9 @@ const cors = require("cors");
 const session = require("express-session");
 const logger = require("morgan");
 const chalk = require("chalk");
-const userRouter = require("./routers/userRouter");
-const productRouter = require("./routers/productRouter");
+const userRouter = require("./routers/user.router");
+const productRouter = require("./routers/product.router");
+const orderRouter = require("./routers/order.router");
 
 /**
  * Config:
@@ -16,16 +17,18 @@ const productRouter = require("./routers/productRouter");
 dotenv.config();
 const {
   PORT = 5000,
-  DB_URL = "mongodb://localhost:27017/ecommerce-dev",
-  SESS_SECRET,
-  NODE_ENV = "development",
+    DB_URL,
+    SESS_SECRET,
+    NODE_ENV = "development",
 } = process.env;
 
 // Basic Middlwares
 const app = express();
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cors());
 
 //session mdlw should be before routes mdlws
@@ -46,6 +49,7 @@ app.use(
 // Routers
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
 
 // DB
 mongoose.connect(DB_URL, {
