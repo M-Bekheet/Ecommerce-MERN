@@ -18,13 +18,14 @@ const reviewSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true
   },
   seller: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true
   },
   price: {
     type: Number,
@@ -52,7 +53,7 @@ const productSchema = new mongoose.Schema({
   },
   numReviews: {
     type: Number,
-    required: true
+    // required: true
   },
   reviews: [reviewSchema],
 }, {

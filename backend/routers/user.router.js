@@ -1,6 +1,8 @@
 const express = require("express");
 const User = require("../models/user.model");
-const hasAuth = require('../utils')
+const {
+  isAuth
+} = require('../utils')
 const bcrypt = require("bcrypt");
 const chalk = require("chalk");
 const log = console.log;
@@ -76,6 +78,8 @@ router.post("/login", async (req, res) => {
     if (!isMatch) return res.status(400).send("Wrong Login Data");
 
     req.session.userID = user.id;
+    req.session.isAdmin = user.isAdmin;
+    req.session.isSeller = user.isSeller;
     res.send(user);
   } catch (err) {
     console.log(chalk.red(err));
@@ -84,7 +88,7 @@ router.post("/login", async (req, res) => {
 });
 
 //for testing purposes
-router.get("/read", hasAuth, async (req, res) => {
+router.get("/read", isAuth, async (req, res) => {
   try {
     const user = await User.findById(req.session.userID)
     res.send(user)
