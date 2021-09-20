@@ -35,7 +35,7 @@ router.post("/", isAuth, async (req, res) => {
       description,
       countInStock
     })
-    product.save()
+    await product.save()
     res.send(product)
   } catch (err) {
     console.log(err)
@@ -123,10 +123,7 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
     const deletedProduct = await Product.deleteOne({
       _id: req.params.id
     })
-    res.send({
-      msg: 'Product Deleted',
-      product: deletedProduct
-    })
+    res.send(deletedProduct)
   } catch (err) {
     console.log(err)
     res.status(500).send();
