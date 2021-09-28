@@ -26,6 +26,7 @@ router.post("/register", async (req, res, next) => {
 
     username = username.toLowerCase();
     email = email.toLowerCase();
+    if (email.length < 8 || password.length < 8 || username.length < 8) return res.status(400).send('Bad Register Data!');
     password = await bcrypt.hash(password, 8);
 
     const foundUser = await User.findOne({
@@ -44,8 +45,9 @@ router.post("/register", async (req, res, next) => {
       password,
       email
     });
-    user.save();
-
+    if (!user) throw new Error('not created')
+    await user.save();
+    console.log(user)
     req.session.userID = user.id;
 
 

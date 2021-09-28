@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app",
-    "dev": "nodemon app"
+    "dev": "nodemon app --ignore './client/"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +17,9 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "mongoose": "^5.13.3"
+    "http-proxy-middleware": "^2.0.1",
+    "mongoose": "^5.13.3",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "chalk": "^4.1.1",
